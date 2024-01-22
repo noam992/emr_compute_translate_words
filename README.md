@@ -15,14 +15,16 @@ In a cluster, the combination of multiple worker nodes and the cores within each
 ## Spark Deploy Modes – Client vs Cluster
 
 Using spark-submit --deploy-mode <client/cluster>, you can specify where to run the Spark application driver program. 
-**client** - the driver runs locally from where you are submitting your application. majorly used for interactive and debugging purposes. 
-**cluster** - the driver runs on one of the worker nodes. run production jobs for big data processes. 
+
+**Client** - the driver runs locally from where you are submitting your application. majorly used for interactive and debugging purposes. 
+**Cluster** - the driver runs on one of the worker nodes. run production jobs for big data processes. 
 
 ## Cluster Managers (–master)
 
 specify what cluster manager to use to run your application. 
-**yarn** - Use yarn if your cluster resources are managed by Hadoop Yarn. 
-**local** - Use local to run locally with a one worker thread. 
+
+**Yarn** - Use yarn if your cluster resources are managed by Hadoop Yarn. 
+**Local** - Use local to run locally with a one worker thread. 
 Use local[k] and specify k with the number of cores you have locally, this runs application with k worker threads. 
 
 ## Hadoop
@@ -30,6 +32,7 @@ Use local[k] and specify k with the number of cores you have locally, this runs 
 ### Hadoop - Storage
 
 **HDFS (Hadoop Distributed File System)** is not a traditional database but a distributed file system designed to store and process big data. 
+
 **HDFS, NameNode** is the FS of the Master node. 
 **HDFS, DataNode** is the FS of the Slave node. 
 In AWS there is an alternative to use S3 as FS (FIle System) instead of HDFS. 
@@ -37,6 +40,7 @@ In AWS there is an alternative to use S3 as FS (FIle System) instead of HDFS.
 ### Hadoop - Compute Handler
 
 YARN is responsible for allocating system resources to the various applications running and scheduling tasks to be executed on different cluster nodes. 
+
 **YARN, ResourceManager** of the Master node. 
 **YARN, NodeManagers** of the Slave node. 
 
