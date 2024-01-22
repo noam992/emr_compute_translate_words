@@ -12,8 +12,8 @@ os.environ['PYSPARK_DRIVER_PYTHON'] = sys.executable
 S3_DATA_OUTPUT_PATH = 's3://datalake-stock/silver/output.parquet'
 
 # S3 credentials
-AWS_ACCESS_KEY_ID = 'AKIAURE44WF7NIRJZB7Q'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = '<insert access key>'
+AWS_SECRET_ACCESS_KEY = '<insert secret key>'
 REGION = 'us-east-1'
 
 

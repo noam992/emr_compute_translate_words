@@ -8,8 +8,8 @@ from datetime import datetime
 
 ### AWS credentials ###
 # REMOVE #
-aws_access_key_id = 'AKIAURE44WF7IG3WAWVU'
-aws_secret_access_key = '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'
+aws_access_key_id = '<insert access key>'
+aws_secret_access_key = '<insert secret key>'
 region_name = 'us-east-1'
 
 
