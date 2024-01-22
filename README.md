@@ -30,13 +30,15 @@ Use local[k] and specify k with the number of cores you have locally, this runs 
 ### Hadoop - Storage
 
 **HDFS (Hadoop Distributed File System)** is not a traditional database but a distributed file system designed to store and process big data.
-HDFS, NameNode is the FS of the Master node. HDFS, DataNode is the FS of the Slave node.
+**HDFS, NameNode** is the FS of the Master node.
+**HDFS, DataNode** is the FS of the Slave node.
 In AWS there is an alternative to use S3 as FS (FIle System) instead of HDFS
 
 ### Hadoop - Compute Handler
 
 YARN is responsible for allocating system resources to the various applications running and scheduling tasks to be executed on different cluster nodes.
-YARN, ResourceManager of the Master node YARN, NodeManagers of the Slave node
+**YARN, ResourceManager** of the Master node
+**YARN, NodeManagers** of the Slave node
 
 ### Hadoop - Query Data
 
