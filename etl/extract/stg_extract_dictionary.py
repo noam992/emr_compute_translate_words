@@ -52,10 +52,11 @@ def main():
     translate_dict = get_translating(word)
     
     translate_item = extract_an_item_from_list(translate_dict, 0)
-
+    print("Example of first translate word: ")
     print(translate_item)
+
     # Create a PySpark RDD (Resilient Distributed Dataset)
-    translate_rdd = spark.sparkContext.parallelize(translate_item)
+    translate_rdd = spark.sparkContext.parallelize(translate_dict)
 
     # # Define the schema for the Data Frame
     translate_schema = StructType([

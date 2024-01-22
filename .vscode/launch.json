@@ -1,0 +1,20 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "PowerShell: Spark Submit",
+            "type": "PowerShell",
+            "request": "launch",
+            "script": "${workspaceFolder}\\venv\\Scripts\\spark-submit.cmd",
+            "args": [
+                "--master", "local[*]",
+                "--deploy-mode", "client",
+                "--conf", "spark.pyspark.python=python",
+                "${workspaceFolder}\\etl\\extract\\stg_extract_dictionary.py",
+                "home"
+            ],
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}
+
