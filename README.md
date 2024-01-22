@@ -4,7 +4,7 @@ Extracting translation of words. AWS infra services (EMR, Lambda Function)
 
 # Extra details - explaination methods
 
-## spark - Cluster Compute
+## Spark - Cluster Compute
 
 ### Driver resources
 
@@ -21,7 +21,7 @@ Using spark-submit --deploy-mode <client/cluster>, you can specify where to run 
 ## Cluster Managers (–master)
 
 specify what cluster manager to use to run your application
-**Yarn** - Use yarn if your cluster resources are managed by Hadoop Yarn.
+**yarn** - Use yarn if your cluster resources are managed by Hadoop Yarn.
 **local** - Use local to run locally with a one worker thread.
 Use local[k] and specify k with the number of cores you have locally, this runs application with k worker threads.
 
