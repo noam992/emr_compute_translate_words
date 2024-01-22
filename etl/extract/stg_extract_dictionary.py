@@ -54,28 +54,33 @@ def main():
     translate_item = extract_an_item_from_list(translate_dict, 0)
 
     print(translate_item)
-    # # Create a PySpark RDD (Resilient Distributed Dataset)
-    # translate_rdd = spark.sparkContext.parallelize(translate_dict)
+    # Create a PySpark RDD (Resilient Distributed Dataset)
+    translate_rdd = spark.sparkContext.parallelize(translate_item)
 
     # # Define the schema for the Data Frame
-    # translate_schema = StructType([
-    #     StructField("name", StringType(), nullable=False),
-    #     StructField("age", IntegerType(), nullable=False),
-    #     StructField("department", StringType(), nullable=False)
-    # ])
+    translate_schema = StructType([
+        StructField("definition", StringType(), nullable=False),
+        StructField("permalink", StringType(), nullable=False),
+        StructField("thumbs_up", IntegerType(), nullable=False),
+        StructField("author", StringType(), nullable=False),
+        StructField("word", StringType(), nullable=False),
+        StructField("defid", IntegerType(), nullable=False),
+        StructField("current_vote", StringType(), nullable=False),
+        StructField("written_on", StringType(), nullable=False),
+        StructField("example", StringType(), nullable=False),
+        StructField("thumbs_down", IntegerType(), nullable=False)
+    ])
 
-    # # Apply the schema to the RDD and create a Data Frame
-    # translate_df = spark.createDataFrame(translate_rdd, translate_schema)
+    # Apply the schema to the RDD and create a Data Frame
+    translate_df = spark.createDataFrame(translate_rdd, translate_schema)
 
-    # # Print data frame
-    # translate_df.show()
+    # Print data frame
+    translate_df.show()
 
 if __name__ == "__main__":
     # Create a SparkSession
     print("Creating SparkSession...")
     spark = SparkSession.builder.appName('stg_word_translate') \
-        .config('spark.hadoop.fs.s3a.access.key', AWS_ACCESS_KEY_ID) \
-        .config('spark.hadoop.fs.s3a.secret.key', AWS_SECRET_ACCESS_KEY) \
         .getOrCreate()
     
     main()
