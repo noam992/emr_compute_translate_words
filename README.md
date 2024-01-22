@@ -2,7 +2,7 @@
 
 Extracting translation of words. AWS infra services (EMR, Lambda Function)
 
-# Extra details - explaination methods
+# Extra details - Methods
 
 ## Spark - Cluster Compute
 
