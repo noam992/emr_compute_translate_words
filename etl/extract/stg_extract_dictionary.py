@@ -12,9 +12,18 @@ os.environ['PYSPARK_DRIVER_PYTHON'] = sys.executable
 S3_DATA_OUTPUT_PATH = 's3://datalake-stock/silver/output.parquet'
 
 # S3 credentials
-AWS_ACCESS_KEY_ID = '<insert access key>'
-AWS_SECRET_ACCESS_KEY = '<insert secret key>'
+AWS_ACCESS_KEY_ID = 'AKIAURE44WF7NIRJZB7Q'
+AWS_SECRET_ACCESS_KEY = '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'
 REGION = 'us-east-1'
+
+    # Create a SparkSession
+print("Creating SparkSession...")
+spark = SparkSession.builder.appName('stg_word_translate') \
+    .config('spark.hadoop.fs.s3a.access.key', AWS_ACCESS_KEY_ID) \
+    .config('spark.hadoop.fs.s3a.secret.key', AWS_SECRET_ACCESS_KEY) \
+    .config('spark.hadoop.fs.s3a.impl', 'org.apache.hadoop.fs.s3a.S3AFileSystem') \
+    .config('spark.hadoop.fs.s3a.endpoint', f's3a://{REGION}') \
+    .getOrCreate()
 
 
 def get_translating(word: str) -> List[dict]:
@@ -33,18 +42,15 @@ def get_translating(word: str) -> List[dict]:
 
     return res_json['list']
 
-    # for key, value in res_json['list'][0].items():
-    #     print(key, ': ', value)
-
 def extract_an_item_from_list(lst: List[dict], item_num: int) -> dict:
     return lst[item_num]
 
-def upload_to_s3(item):
+def upload_to_s3(spark_df):
 
     print("Writing processed data to S3...")
-    item.write.mode('overwrite').parquet(S3_DATA_OUTPUT_PATH)
+    spark_df.write.parquet(S3_DATA_OUTPUT_PATH, mode='overwrite')
 
-def main():
+def translate_word_fnc():
     word = sys.argv[1]
     print('The word is: ', word)
     print("Creating SparkSession...")
@@ -76,12 +82,12 @@ def main():
     translate_df = spark.createDataFrame(translate_rdd, translate_schema)
 
     # Print data frame
+    print("Spark Dataframe: ")
     translate_df.show()
 
+    upload_to_s3(translate_df)
+
+
 if __name__ == "__main__":
-    # Create a SparkSession
-    print("Creating SparkSession...")
-    spark = SparkSession.builder.appName('stg_word_translate') \
-        .getOrCreate()
     
-    main()
+    translate_word_fnc()
