@@ -9,7 +9,7 @@ def lambda_handler(event, context):
     word = 'home'
     print("translate word : ",word)
     
-    backend_code="s3://datalake-stock/assets/emr_code_stg/emr_stg.py"
+    backend_code="s3://datalake-translate-words/scripts/raw/emr_stg.py"
     spark_submit = [
         'spark-submit',
         '--master', 'yarn',
@@ -50,7 +50,7 @@ def lambda_handler(event, context):
                 'TerminationProtected': False,
                 'Ec2SubnetId': 'subnet-0097481e6feb2f4a7',
             },
-            LogUri="s3://datalake-stock/spark-logs/",
+            LogUri="s3://datalake-translate-words/spark-logs/",
             ReleaseLabel= 'emr-6.15.0',
             Steps=[{
                 "Name": "testJobGURU",
