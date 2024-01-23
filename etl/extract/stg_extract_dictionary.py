@@ -12,8 +12,8 @@ os.environ['PYSPARK_DRIVER_PYTHON'] = sys.executable
 S3_DATA_OUTPUT_PATH = 's3://datalake-stock/silver/output.parquet'
 
 # S3 credentials
-AWS_ACCESS_KEY_ID = 'AKIAURE44WF7NIRJZB7Q'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = '<>'
+AWS_SECRET_ACCESS_KEY = '<>'
 REGION = 'us-east-1'
 
     # Create a SparkSession
@@ -21,8 +21,6 @@ print("Creating SparkSession...")
 spark = SparkSession.builder.appName('stg_word_translate') \
     .config('spark.hadoop.fs.s3a.access.key', AWS_ACCESS_KEY_ID) \
     .config('spark.hadoop.fs.s3a.secret.key', AWS_SECRET_ACCESS_KEY) \
-    .config('spark.hadoop.fs.s3a.impl', 'org.apache.hadoop.fs.s3a.S3AFileSystem') \
-    .config('spark.hadoop.fs.s3a.endpoint', f's3a://{REGION}') \
     .getOrCreate()
 
 
