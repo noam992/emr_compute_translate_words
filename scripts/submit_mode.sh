@@ -3,4 +3,5 @@
 spark-submit --master local[*] --deploy-mode client --conf "spark.pyspark.python=python" etl/extract/stg_extract_dictionary.py home
 
 # on EMR cluster for debugging
+# running requirements.txt file
 spark-submit stg_scripts/stg_extract_dictionary.py home
