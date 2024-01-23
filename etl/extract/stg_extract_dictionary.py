@@ -10,7 +10,7 @@ from datetime import datetime
 os.environ['PYSPARK_PYTHON'] = sys.executable
 os.environ['PYSPARK_DRIVER_PYTHON'] = sys.executable
 
-S3_DATA_OUTPUT_PATH = 's3://datalake-stock/silver'
+S3_DATA_OUTPUT_PATH = 's3://datalake-translate-words/raw'
 
 # S3 credentials
 AWS_ACCESS_KEY_ID = '<>'
