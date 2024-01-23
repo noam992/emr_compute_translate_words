@@ -4,25 +4,34 @@ import os
 from typing import List
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType
 from pyspark.sql import SparkSession
+from datetime import datetime
 
 # windows configures
 os.environ['PYSPARK_PYTHON'] = sys.executable
 os.environ['PYSPARK_DRIVER_PYTHON'] = sys.executable
 
-S3_DATA_OUTPUT_PATH = 's3://datalake-stock/silver/output.parquet'
+S3_DATA_OUTPUT_PATH = 's3://datalake-stock/silver'
 
 # S3 credentials
 AWS_ACCESS_KEY_ID = '<>'
 AWS_SECRET_ACCESS_KEY = '<>'
 REGION = 'us-east-1'
 
-    # Create a SparkSession
+# Create a SparkSession
 print("Creating SparkSession...")
 spark = SparkSession.builder.appName('stg_word_translate') \
-    .config('spark.hadoop.fs.s3a.access.key', AWS_ACCESS_KEY_ID) \
-    .config('spark.hadoop.fs.s3a.secret.key', AWS_SECRET_ACCESS_KEY) \
     .getOrCreate()
 
+def get_current_date_components():
+    # Get the current date and time
+    current_date = datetime.now()
+
+    # Extract year, month, and day components
+    year = current_date.year
+    month = current_date.month
+    day = current_date.day
+
+    return year, month, day
 
 def get_translating(word: str) -> List[dict]:
 
@@ -43,10 +52,14 @@ def get_translating(word: str) -> List[dict]:
 def extract_an_item_from_list(lst: List[dict], item_num: int) -> dict:
     return lst[item_num]
 
-def upload_to_s3(spark_df):
+def upload_to_s3(spark_df, word):
 
+    year, month, day = get_current_date_components()
+    S3_PATH = "{}/{}/year={}/month={}/day={}".format(S3_DATA_OUTPUT_PATH, word, year, month, day)
+    print("saved path: ", S3_PATH)
+    
     print("Writing processed data to S3...")
-    spark_df.write.parquet(S3_DATA_OUTPUT_PATH, mode='overwrite')
+    spark_df.write.parquet(S3_PATH, mode='overwrite')
 
 def translate_word_fnc():
     word = sys.argv[1]
@@ -83,7 +96,7 @@ def translate_word_fnc():
     print("Spark Dataframe: ")
     translate_df.show()
 
-    upload_to_s3(translate_df)
+    upload_to_s3(translate_df, word)
 
 
 if __name__ == "__main__":
