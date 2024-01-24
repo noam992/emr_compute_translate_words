@@ -17,7 +17,7 @@ AWS_ACCESS_KEY_ID = '<>'
 AWS_SECRET_ACCESS_KEY = '<>'
 REGION = 'us-east-1'
 
-# Create a SparkSession
+# Create a SparkSession.
 print("Creating SparkSession...")
 spark = SparkSession.builder.appName('stg_word_translate') \
     .getOrCreate()
