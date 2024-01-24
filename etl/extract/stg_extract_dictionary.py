@@ -62,7 +62,8 @@ def upload_to_s3(spark_df, word):
     print("saved path: ", S3_PATH)
     
     print("Writing processed data to S3...")
-    spark_df.write.parquet(S3_PATH, mode='overwrite')
+    spark_df.write.json(S3_PATH, mode='overwrite')
+    # spark_df.write.parquet(S3_PATH, mode='overwrite')
 
 def translate_word_fnc():
     word = sys.argv[1]
