@@ -12,19 +12,22 @@ S3_DATA_INPUT_PATH = 's3://datalake-translate-words/raw'
 S3_DATA_OUTPUT_PATH = 's3://datalake-translate-words/curated'
 
 # S3 credentials
-AWS_ACCESS_KEY_ID = '<>'
-AWS_SECRET_ACCESS_KEY = '<>'
 REGION = 'us-east-1'
 
 # Create a SparkSession.
 print("Creating SparkSession...")
 spark = SparkSession.builder.appName('stg_word_translate') \
-    .config('spark.hadoop.fs.s3a.access.key', AWS_ACCESS_KEY_ID) \
-    .config('spark.hadoop.fs.s3a.secret.key', AWS_SECRET_ACCESS_KEY) \
     .getOrCreate()
+
+def get_s3_word_data():
+
+    S3_PATH_INPUT = "{}/*/*/*/*".format(S3_DATA_INPUT_PATH)
+    print("The path is: ", S3_PATH_INPUT)
+    data = spark.read.json(S3_PATH_INPUT)
+    data.show()
 
 def calculate():
     return True
 
 if __name__ == "__main__":
-    calculate()
+    get_s3_word_data()
