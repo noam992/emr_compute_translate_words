@@ -6,18 +6,27 @@ client = boto3.client('emr')
 
 def lambda_handler(event, context):
     
-    word = 'home'
+    word = 'fire'
     print("translate word : ",word)
     
-    backend_code="s3://datalake-translate-words/scripts/raw/emr_stg.py"
-    spark_submit = [
+    backend_code_raw="s3://datalake-translate-words/scripts/raw.py"
+    spark_submit_raw = [
         'spark-submit',
         '--master', 'yarn',
         '--deploy-mode', 'cluster',
-        backend_code,
+        backend_code_raw,
         word
     ]
-    print("Spark Submit : ",spark_submit)
+    print("Spark Submit Raw: ",spark_submit_raw)
+    
+    backend_code_curated="s3://datalake-translate-words/scripts/curated.py"
+    spark_submit_curated = [
+        'spark-submit',
+        '--master', 'yarn',
+        '--deploy-mode', 'cluster',
+        backend_code_curated
+    ]
+    print("Spark Submit Curated: ",spark_submit_curated)
     
     cluster_id = client.run_job_flow(
         Name="transformation_staging_and_curated",
@@ -53,11 +62,19 @@ def lambda_handler(event, context):
             LogUri="s3://datalake-translate-words/spark-logs/",
             ReleaseLabel= 'emr-6.15.0',
             Steps=[{
-                "Name": "testJobGURU",
+                "Name": "raw_data",
                 'ActionOnFailure': 'CONTINUE',
                 'HadoopJarStep': {
                     'Jar': 'command-runner.jar',
-                    'Args': spark_submit
+                    'Args': spark_submit_raw
+                }
+            },
+            {
+                "Name": "curated_data",
+                'ActionOnFailure': 'CONTINUE',
+                'HadoopJarStep': {
+                    'Jar': 'command-runner.jar',
+                    'Args': spark_submit_curated
                 }
             }],
         BootstrapActions=[],
