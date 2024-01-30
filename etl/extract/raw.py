@@ -67,7 +67,6 @@ def upload_to_s3(spark_df, word):
 def translate_word_fnc():
     word = sys.argv[1]
     print('The word is: ', word)
-    print("Creating SparkSession...")
 
     translate_dict = get_translating(word)
     

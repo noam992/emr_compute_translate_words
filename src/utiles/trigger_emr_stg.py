@@ -69,14 +69,7 @@ def lambda_handler(event, context):
             },
             LogUri="s3://datalake-translate-words/spark-logs/",
             ReleaseLabel= 'emr-6.15.0',
-            Steps=[{
-                "Name": "Setup Hadoop configuration - additional python libraries",
-                "ActionOnFailure": "CONTINUE",
-                "HadoopJarStep": {
-                    "Jar": "command-runner.jar",
-                    "Args": hadoop_config
-                }
-            },
+            Steps=[
             {
                 "Name": "raw_data",
                 'ActionOnFailure': 'CONTINUE',
@@ -93,7 +86,13 @@ def lambda_handler(event, context):
                     'Args': spark_submit_curated
                 }
             }],
-        BootstrapActions=[],
+        BootstrapActions=[{
+                "Name": "Setup Hadoop configuration - additional python libraries",
+                "ScriptBootstrapAction": {
+                    "Path": "s3://datalake-translate-words/scripts/config/hadoop_config.sh"
+                }
+            }
+        ],
         VisibleToAllUsers=True,
         JobFlowRole="EMR_EC2_DefaultRole",
         ServiceRole="EMR_DefaultRole",
