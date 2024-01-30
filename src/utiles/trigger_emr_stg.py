@@ -13,7 +13,7 @@ def lambda_handler(event, context):
     hadoop_config = [
         "bash",
         "-c",
-        f" aws s3 cp {init_bash_script} .; chmod +x hadoop_config.sh; ./hadoop_config.sh; rm hadoop_config.sh "
+        f" aws s3 cp {init_bash_script} ~/.; chmod +x ~/hadoop_config.sh; ~/hadoop_config.sh; rm ~/hadoop_config.sh "
     ]
     print("Spark Submit Bash: ",hadoop_config)
 
