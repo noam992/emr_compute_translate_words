@@ -6,9 +6,17 @@ client = boto3.client('emr')
 
 def lambda_handler(event, context):
     
-    word = 'fire'
+    word = 'family'
     print("translate word : ",word)
-    
+
+    init_bash_script = 's3://datalake-translate-words/scripts/config/hadoop_config.sh'
+    hadoop_config = [
+        "bash",
+        "-c",
+        f" aws s3 cp {init_bash_script} .; chmod +x hadoop_config.sh; ./hadoop_config.sh; rm hadoop_config.sh "
+    ]
+    print("Spark Submit Bash: ",hadoop_config)
+
     backend_code_raw="s3://datalake-translate-words/scripts/raw.py"
     spark_submit_raw = [
         'spark-submit',
@@ -62,6 +70,14 @@ def lambda_handler(event, context):
             LogUri="s3://datalake-translate-words/spark-logs/",
             ReleaseLabel= 'emr-6.15.0',
             Steps=[{
+                "Name": "Setup Hadoop configuration - additional python libraries",
+                "ActionOnFailure": "CONTINUE",
+                "HadoopJarStep": {
+                    "Jar": "command-runner.jar",
+                    "Args": hadoop_config
+                }
+            },
+            {
                 "Name": "raw_data",
                 'ActionOnFailure': 'CONTINUE',
                 'HadoopJarStep': {

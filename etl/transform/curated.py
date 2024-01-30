@@ -16,7 +16,7 @@ REGION = 'us-east-1'
 
 # Create a SparkSession.
 print("Creating SparkSession...")
-spark = SparkSession.builder.appName('stg_word_translate') \
+spark = SparkSession.builder.appName('curated_word_translate') \
     .getOrCreate()
 
 def get_current_date_components():

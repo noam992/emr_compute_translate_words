@@ -19,11 +19,10 @@ REGION = 'us-east-1'
 
 # Create a SparkSession.
 print("Creating SparkSession...")
-spark = SparkSession.builder.appName('stg_word_translate') \
+spark = SparkSession.builder.appName('raw_word_translate') \
     .getOrCreate()
     # .config('spark.hadoop.fs.s3a.access.key', AWS_ACCESS_KEY_ID) \
     # .config('spark.hadoop.fs.s3a.secret.key', AWS_SECRET_ACCESS_KEY) \
-
 
 def get_current_date_components():
     # Get the current date and time
