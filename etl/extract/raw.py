@@ -42,7 +42,7 @@ def get_translating(word: str) -> List[dict]:
     querystring = {"term": word}
 
     headers = {
-        "X-RapidAPI-Key": "fc30ecd86cmsh7f3cf76dfa6a129p133c0ejsn8f267f9f96b0",
+        "X-RapidAPI-Key": "insert your user key of rapidapi.com",
         "X-RapidAPI-Host": "mashape-community-urban-dictionary.p.rapidapi.com"
     }
 
