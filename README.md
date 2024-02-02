@@ -29,15 +29,11 @@ datalake-translate-words/
 │ └── ...
 │
 ├── curated/
-│ └── [word]/
+│ └── insights/
 │ ├── year=YYYY/
-│ │ ├── month=MM/
-│ │ │ └── day=dd/
-│ │ │ └── [curated_data].parquet
-│ │ │
-│ │ └── ...
-│ │
-│ └── ...
+│   ├── month=MM/
+│     └── day=dd/
+│     └── [curated_data].parquet
 │
 └── spark-logs/
 ```
