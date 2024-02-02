@@ -7,6 +7,8 @@ Welcome to the Datalake Translate Words project repository. This project utilize
 AWS EMR is a powerful service for processing large amounts of data using open-source tools such as Apache Spark and Apache Hadoop. It provides a scalable, secure, and cost-effective solution for processing and analyzing big data.
 
 ## Repository Structure
+
+```
 datalake-translate-words/
 │
 ├── scripts/
@@ -38,7 +40,7 @@ datalake-translate-words/
 │ └── ...
 │
 └── spark-logs/
-
+```
 
 ## Workflow Overview
 
