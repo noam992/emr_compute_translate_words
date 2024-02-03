@@ -11,8 +11,6 @@ os.environ['PYSPARK_PYTHON'] = sys.executable
 os.environ['PYSPARK_DRIVER_PYTHON'] = sys.executable
 
 S3_DATA_OUTPUT_PATH = 's3://datalake-translate-words/raw'
-
-# S3 credentials
 REGION = 'us-east-1'
 
 # Create a SparkSession.
